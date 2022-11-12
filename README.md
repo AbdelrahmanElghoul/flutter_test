@@ -1,11 +1,11 @@
-# flutter_testiing
+# A demo for Testing
 
-A demo for Testing
+
 ## What to test
 
-- Unit test
--- Future
--- Exception
--- bloc
--- Mocking
-- Widget test
+* Unit test
+ 	* Future
+ 	* Exception
+ 	* bloc
+ 	* Mocking
+* Widget test
