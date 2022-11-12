@@ -1,5 +1,6 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:test_flutter/data/fake_repository.dart';
 import 'package:test_flutter/data/repo_interface.dart';
 
 void main() {
@@ -12,16 +13,16 @@ void main() {
       test("test future", () async {
         expect(
             await repo.login(
-              email: "test@test.com",
-              password: "Ab123456",
+              email: FakeRepository.fakeEmail,
+              password: FakeRepository.fakePassword,
             ),
             'success');
       });
 
       test("test future", () async {
         final res = repo.login(
-          email: "test@test.com",
-          password: "Ab123456",
+          email: FakeRepository.fakeEmail,
+          password: FakeRepository.fakePassword,
         );
         expectLater(res, completion('success'));
       });
@@ -34,8 +35,8 @@ void main() {
         fakeAsync((async) {
           expect(
               repo.login(
-                email: "test@test.com",
-                password: "Ab123456",
+                email: FakeRepository.fakeEmail,
+                password: FakeRepository.fakePassword,
               ),
               completion('success'));
           async.elapse(const Duration(minutes: 1));
@@ -45,8 +46,8 @@ void main() {
       test("test future - fakeAsync", () {
         fakeAsync((async) {
           final res = repo.login(
-            email: "test@test.com",
-            password: "Ab123456",
+            email: FakeRepository.fakeEmail,
+            password: FakeRepository.fakePassword,
           );
           expect(res, completion('success'));
           async.elapse(const Duration(minutes: 1));
