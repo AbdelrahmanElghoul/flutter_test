@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_testiing/bussiness/login_cubt/login_cubit.dart';
-import 'package:flutter_testiing/data/repo_interface.dart';
-import 'package:flutter_testiing/screens/login_screen.dart';
+import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/data/repo_interface.dart';
+import 'package:test_flutter/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());

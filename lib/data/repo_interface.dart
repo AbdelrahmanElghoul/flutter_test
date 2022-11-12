@@ -1,4 +1,4 @@
-import 'package:flutter_testiing/data/fake_repository.dart';
+import 'package:test_flutter/data/fake_repository.dart';
 
 abstract class IRepository {
   factory IRepository.production() => throw UnimplementedError();

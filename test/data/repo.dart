@@ -1,6 +1,6 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testiing/data/repo_interface.dart';
+import 'package:test_flutter/data/repo_interface.dart';
 
 void main() {
   late IRepository repo;

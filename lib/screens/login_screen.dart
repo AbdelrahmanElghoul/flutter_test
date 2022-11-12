@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_testiing/bussiness/login_cubt/login_cubit.dart';
-import 'package:flutter_testiing/util/validation.dart';
+import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/util/validation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

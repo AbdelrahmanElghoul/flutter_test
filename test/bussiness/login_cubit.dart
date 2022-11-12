@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testiing/bussiness/login_cubt/login_cubit.dart';
-import 'package:flutter_testiing/data/repo_interface.dart';
+import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/data/repo_interface.dart';
 
 void main() {
   late LoginCubit loginCubit;

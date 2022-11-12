@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_testiing/data/repo_interface.dart';
+import 'package:test_flutter/data/repo_interface.dart';
 
 part 'login_state.dart';
 

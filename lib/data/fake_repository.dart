@@ -1,4 +1,4 @@
-import 'package:flutter_testiing/data/repo_interface.dart';
+import 'package:test_flutter/data/repo_interface.dart';
 
 class FakeRepository implements IRepository {
   @override
