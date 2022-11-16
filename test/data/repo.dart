@@ -62,15 +62,15 @@ void main() {
       test("success exception test1", () {
         expect(
             repo.login(
-              email: "test0@test.com",
+              email: "x${FakeRepository.fakeEmail}",
               password: "Ab123456",
             ),
             throwsException);
       });
 
-      test("success exception test2", () async {
+      test("success exception test2", () {
         final res = repo.login(
-          email: "test2@test.com",
+          email: "x${FakeRepository.fakeEmail}",
           password: "Ab123456",
         );
         expect(res, throwsException);
@@ -79,7 +79,7 @@ void main() {
       /// will fail test as the exception will be thrown
       test("failed exception test1", () async {
         final res = repo.login(
-          email: "test1@test.com",
+          email: "x${FakeRepository.fakeEmail}",
           password: "Ab123456",
         );
         expectLater(res, completion(throwsA(isA<Exception>)));
@@ -87,7 +87,7 @@ void main() {
 
       test("failed exception test2", () async {
         final res = repo.login(
-          email: "test1@test.com",
+          email: "x${FakeRepository.fakeEmail}",
           password: "Ab123456",
         );
         expectLater(res, completion(throwsException));
@@ -98,7 +98,7 @@ void main() {
         fakeAsync((async) {
           expect(
             repo.login(
-              email: "test0@test.com",
+              email: "x${FakeRepository.fakeEmail}",
               password: "Ab123456",
             ),
             throwsException,
@@ -107,10 +107,10 @@ void main() {
         });
       });
 
-      test("success exception test2", () async {
+      test("success exception test2", () {
         fakeAsync((async) {
           final res = repo.login(
-            email: "test2@test.com",
+            email: "x${FakeRepository.fakeEmail}",
             password: "Ab123456",
           );
           expect(res, throwsException);
@@ -121,7 +121,7 @@ void main() {
       test("failed exception test1", () async {
         fakeAsync((async) {
           final res = repo.login(
-            email: "test1@test.com",
+            email: "x${FakeRepository.fakeEmail}",
             password: "Ab123456",
           );
           expect(res, completion(throwsA(isA<Exception>)));
@@ -132,7 +132,7 @@ void main() {
       test("failed exception test2", () async {
         fakeAsync((async) {
           final res = repo.login(
-            email: "test1@test.com",
+            email: "x${FakeRepository.fakeEmail}",
             password: "Ab123456",
           );
           expect(res, completion(throwsException));
