@@ -1,8 +1,12 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test_flutter/data/fake_repository.dart';
+import 'package:test_flutter/data/fake_repository.mocks.dart';
 import 'package:test_flutter/data/model/errors.dart';
+import 'package:test_flutter/data/model/location.dart';
 import 'package:test_flutter/data/model/user.dart';
+import 'package:test_flutter/data/model/user_address.dart';
 import 'package:test_flutter/data/repo_interface.dart';
 
 void main() {
@@ -145,6 +149,29 @@ void main() {
           async.elapse(const Duration(minutes: 1));
         });
       });
+    });
+  });
+
+  group("mocking login method", () {
+    test('mock', () async {
+      var mockedRepo = MockFakeRepository();
+      const user = User(
+        email: "neMockedEmail",
+        lastName: "mockedLast",
+        firstName: "mockedFirst",
+        address: Address(
+          address: "mocked address",
+          location: Location(9, 9),
+        ),
+      );
+      when(
+        mockedRepo.login(email: "email", password: "password"),
+      ).thenAnswer((_) async => user);
+
+      expect(
+        await mockedRepo.login(email: "email", password: "password"),
+        user,
+      );
     });
   });
 }

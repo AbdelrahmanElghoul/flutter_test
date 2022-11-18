@@ -1,8 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:test_flutter/data/model/location.dart';
 
-class Address {
+class Address extends Equatable {
   final String? address;
   final Location? location;
 
-  Address({this.address, this.location});
+  const Address({this.address, this.location});
+
+  @override
+  List<Object?> get props => [address, location];
 }

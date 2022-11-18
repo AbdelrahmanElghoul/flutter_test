@@ -1,4 +1,9 @@
-class AuthException implements Exception {
+import 'package:equatable/equatable.dart';
+
+class AuthException extends Equatable implements Exception {
   final String? message;
-  AuthException([this.message]);
+  const AuthException([this.message]);
+
+  @override
+  List<Object?> get props => [runtimeType];
 }
