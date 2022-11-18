@@ -1,11 +1,12 @@
+import 'package:test_flutter/data/model/user_address.dart';
+
 class User {
-  String? id;
   String? firstName;
   String? lastName;
   String? email;
-  String? token;
 
-  User({this.id, this.firstName, this.lastName, this.email, this.token});
+  Address? address;
+  User({this.firstName, this.lastName, this.email, this.address});
 
   String getFullName() {
     return "$firstName $lastName";

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/data/fake_repository.dart';
 import 'package:test_flutter/data/repo_interface.dart';
 
 void main() {
@@ -13,8 +14,8 @@ void main() {
   group('login method', () {
     test("description", () async {
       final res = loginCubit.login(
-        email: "test@test.com",
-        password: "Ab123456",
+        email: FakeRepository.fakeEmail,
+        password: FakeRepository.fakePassword,
       );
 
       expectLater(res, completion('success'));

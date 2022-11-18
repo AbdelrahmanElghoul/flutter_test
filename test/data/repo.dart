@@ -1,6 +1,8 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_flutter/data/fake_repository.dart';
+import 'package:test_flutter/data/model/errors.dart';
+import 'package:test_flutter/data/model/user.dart';
 import 'package:test_flutter/data/repo_interface.dart';
 
 void main() {
@@ -10,21 +12,22 @@ void main() {
 
   group('success login method', () {
     group(' without fakeAsync', () {
-      test("test future", () async {
+      test("test future1", () async {
         expect(
-            await repo.login(
-              email: FakeRepository.fakeEmail,
-              password: FakeRepository.fakePassword,
-            ),
-            'success');
+          await repo.login(
+            email: FakeRepository.fakeEmail,
+            password: FakeRepository.fakePassword,
+          ),
+          isA<User>(),
+        );
       });
 
-      test("test future", () async {
+      test("test future2", () async {
         final res = repo.login(
           email: FakeRepository.fakeEmail,
           password: FakeRepository.fakePassword,
         );
-        expectLater(res, completion('success'));
+        expectLater(res, completion(isA<User>()));
       });
     });
 
@@ -34,11 +37,12 @@ void main() {
       test("test future", () async {
         fakeAsync((async) {
           expect(
-              repo.login(
-                email: FakeRepository.fakeEmail,
-                password: FakeRepository.fakePassword,
-              ),
-              completion('success'));
+            repo.login(
+              email: FakeRepository.fakeEmail,
+              password: FakeRepository.fakePassword,
+            ),
+            completion(isA<User>()),
+          );
           async.elapse(const Duration(minutes: 1));
         });
       });
@@ -49,23 +53,25 @@ void main() {
             email: FakeRepository.fakeEmail,
             password: FakeRepository.fakePassword,
           );
-          expect(res, completion('success'));
+          expect(res, completion(isA<User>()));
           async.elapse(const Duration(minutes: 1));
         });
       });
     });
   });
+
   group('throw Exception test', () {
     /// use expect with exception
     /// expect later will make the exception to be thrown without being caught causing test to fail
     group(' without fakeAsync', () {
       test("success exception test1", () {
         expect(
-            repo.login(
-              email: "x${FakeRepository.fakeEmail}",
-              password: "Ab123456",
-            ),
-            throwsException);
+          repo.login(
+            email: "x${FakeRepository.fakeEmail}",
+            password: "Ab123456",
+          ),
+          throwsA(isA<AuthException>()),
+        );
       });
 
       test("success exception test2", () {
@@ -73,7 +79,7 @@ void main() {
           email: "x${FakeRepository.fakeEmail}",
           password: "Ab123456",
         );
-        expect(res, throwsException);
+        expect(res, throwsA(isA<AuthException>()));
       });
 
       /// will fail test as the exception will be thrown
@@ -90,7 +96,7 @@ void main() {
           email: "x${FakeRepository.fakeEmail}",
           password: "Ab123456",
         );
-        expectLater(res, completion(throwsException));
+        expectLater(res, completion(throwsA(isA<Exception>)));
       });
     });
     group('test - fakeAsync', () {
@@ -101,7 +107,7 @@ void main() {
               email: "x${FakeRepository.fakeEmail}",
               password: "Ab123456",
             ),
-            throwsException,
+            throwsA(isA<AuthException>()),
           );
           async.elapse(const Duration(minutes: 1));
         });
@@ -113,7 +119,7 @@ void main() {
             email: "x${FakeRepository.fakeEmail}",
             password: "Ab123456",
           );
-          expect(res, throwsException);
+          expect(res, throwsA(isA<AuthException>()));
           async.elapse(const Duration(minutes: 1));
         });
       });
@@ -124,7 +130,7 @@ void main() {
             email: "x${FakeRepository.fakeEmail}",
             password: "Ab123456",
           );
-          expect(res, completion(throwsA(isA<Exception>)));
+          expect(res, completion(throwsA(isA<AuthException>)));
           async.elapse(const Duration(minutes: 1));
         });
       });
@@ -135,7 +141,7 @@ void main() {
             email: "x${FakeRepository.fakeEmail}",
             password: "Ab123456",
           );
-          expect(res, completion(throwsException));
+          expect(res, completion(throwsA(isA<AuthException>)));
           async.elapse(const Duration(minutes: 1));
         });
       });
