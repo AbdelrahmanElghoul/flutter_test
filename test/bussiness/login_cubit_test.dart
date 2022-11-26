@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
-import 'package:test_flutter/data/fake_repository.dart';
 import 'package:test_flutter/data/fake_repository.mocks.dart';
 import 'package:test_flutter/data/model/errors.dart';
 import 'package:test_flutter/data/model/location.dart';

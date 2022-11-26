@@ -7,6 +7,7 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final IRepository _repo;
+
   LoginCubit(this._repo) : super(LoginInitialState());
 
   login({required String email, required String password}) async {
