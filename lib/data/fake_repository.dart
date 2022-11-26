@@ -12,7 +12,7 @@ class FakeRepository implements IRepository {
   FakeRepository._();
   static FakeRepository instance = FakeRepository._();
   @override
-  Future login({required String email, required String password}) async {
+  Future login({required String? email, required String? password}) async {
     await Future.delayed(const Duration(seconds: 5));
 
     if (email == fakeEmail && password == fakePassword) {

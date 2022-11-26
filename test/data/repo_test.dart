@@ -153,7 +153,7 @@ void main() {
   });
 
   group("mocking login method", () {
-    test('mock', () async {
+    test('mock user response', () async {
       var mockedRepo = MockFakeRepository();
       const user = User(
         email: "neMockedEmail",
@@ -171,6 +171,19 @@ void main() {
       expect(
         await mockedRepo.login(email: "email", password: "password"),
         user,
+      );
+    });
+
+    test('mock exception', () async {
+      var mockedRepo = MockFakeRepository();
+      const AuthException exception = AuthException("invalid data");
+      when(
+        mockedRepo.login(email: "email", password: "password"),
+      ).thenThrow(exception);
+
+      expect(
+        () => mockedRepo.login(email: "email", password: "password"),
+        throwsA(exception),
       );
     });
   });
