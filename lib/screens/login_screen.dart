@@ -5,6 +5,7 @@ import 'package:test_flutter/util/validation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -35,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextFormField(
+                key: const Key("emailKey"),
                 controller: _emailController,
                 decoration: const InputDecoration(label: Text("Email")),
                 validator: (val) {
@@ -43,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               TextFormField(
+                key: const ValueKey("passwordKey"),
                 controller: _passwordController,
                 decoration: const InputDecoration(label: Text("password")),
                 validator: (val) {
@@ -52,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
                 if (state is LoginErrorState) {
+                  _passwordController.clear();
                   final snackBar = SnackBar(
                     content: Text(state.exception.toString()),
                     duration: const Duration(seconds: 3),
@@ -71,9 +75,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               }, builder: (context, state) {
                 if (state is LoginLoadingState) {
-                  return const CircularProgressIndicator();
+                  return const CircularProgressIndicator(
+                    key: Key("loaderKey"),
+                  );
                 }
                 return ElevatedButton(
+                  key: const ValueKey("loginBtnKey"),
                   onPressed: () {
                     if (_formKey.currentState?.validate() == true) {
                       context.read<LoginCubit>().login(
