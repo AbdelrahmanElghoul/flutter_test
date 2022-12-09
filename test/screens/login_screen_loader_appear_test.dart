@@ -1,49 +1,50 @@
+import 'dart:async';
+
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
-import 'package:test_flutter/data/fake_repository.mocks.dart';
-import 'package:test_flutter/data/model/errors.dart';
 import 'package:test_flutter/screens/login_screen.dart';
 
+//-------
+class MockLoginCubit extends MockCubit<LoginState> implements LoginCubit {}
+
 void main() {
-  testWidgets('testing login error components', (widgetTester) async {
+  testWidgets('testing button will be replaced with loader while loading',
+      (widgetTester) async {
     /// setting environment
     const String email = "test@test.com";
     const String password = "Aa123456";
-    final repo = MockFakeRepository();
-    LoginCubit loginCubit = LoginCubit(repo);
+
     const emailKey = ValueKey("emailKey");
     const passwordKey = ValueKey("passwordKey");
     const loginBtnKey = ValueKey("loginBtnKey");
+    const loadingKey = ValueKey("loaderKey");
 
-    const authException = AuthException('message');
+    /// stream to stubbing cubit states
+    StreamController<LoginState> streamController = StreamController();
+
+    /// mocking cubit
+    LoginCubit loginCubit = MockLoginCubit();
+
+    /// stub cubit
+    when(() => loginCubit.stream).thenAnswer((_) => streamController.stream);
+    whenListen(
+      loginCubit,
+      streamController.stream,
+      initialState: LoginInitialState(),
+    );
 
     /// creating widget
     await widgetTester.pumpWidget(createWidgetUnderTest(loginCubit));
-
-    /// mocking repo
-    when(
-      repo.login(
-        email: anyNamed("email"),
-        password: anyNamed("password"),
-      ),
-    ).thenThrow(authException);
-
-    /// testing cubit
-    expectLater(
-      loginCubit.stream,
-      emitsInOrder([
-        LoginLoadingState(),
-        LoginErrorState(authException),
-      ]),
-    );
 
     /// all elements exists
     expect(find.byKey(emailKey), findsOneWidget);
     expect(find.byKey(passwordKey), findsOneWidget);
     expect(find.byKey(loginBtnKey), findsOneWidget);
+    expect(find.byKey(loadingKey), findsNothing);
 
     /// no text entered yet
     expect(find.text(email), findsNothing);
@@ -58,17 +59,19 @@ void main() {
     expect(find.text(password), findsOneWidget);
 
     /// press the button to start login process
-
     await widgetTester.tap(find.byKey(loginBtnKey));
 
+    /// setting state value
+    streamController.add(LoginLoadingState());
+
+    /// refresh UI
     await widgetTester.pump();
 
-    /// test error message appeared on screen
-    expect(find.text(authException.toString()), findsOneWidget);
-
-    /// test email field value remains while password cleared
-    expect(find.text(email), findsOneWidget);
-    expect(find.text(password), findsNothing);
+    /// testing if btn was replaced with loader
+    expect(find.byKey(emailKey), findsOneWidget);
+    expect(find.byKey(passwordKey), findsOneWidget);
+    expect(find.byKey(loginBtnKey), findsNothing);
+    expect(find.byKey(loadingKey), findsOneWidget);
   });
 }
 

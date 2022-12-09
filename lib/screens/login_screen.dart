@@ -53,45 +53,48 @@ class _LoginScreenState extends State<LoginScreen> {
                   return "invalid password";
                 },
               ),
-              BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
-                if (state is LoginErrorState) {
-                  _passwordController.clear();
-                  final snackBar = SnackBar(
-                    content: Text(state.exception.toString()),
-                    duration: const Duration(seconds: 3),
-                    backgroundColor: Colors.red,
-                  );
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginErrorState) {
+                    _passwordController.clear();
+                    final snackBar = SnackBar(
+                      content: Text(state.exception.toString()),
+                      duration: const Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                    );
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else if (state is LoginSuccessState) {
-                  final snackBar = SnackBar(
-                    content: Text(
-                        "welcome back ${_emailController.text.split("@").first}"),
-                    duration: const Duration(seconds: 3),
-                    backgroundColor: Colors.green,
-                  );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else if (state is LoginSuccessState) {
+                    final snackBar = SnackBar(
+                      content: Text(
+                          "welcome back ${_emailController.text.split("@").first}"),
+                      duration: const Duration(seconds: 3),
+                      backgroundColor: Colors.green,
+                    );
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              }, builder: (context, state) {
-                if (state is LoginLoadingState) {
-                  return const CircularProgressIndicator(
-                    key: Key("loaderKey"),
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is LoginLoadingState) {
+                    return const CircularProgressIndicator(
+                      key: Key("loaderKey"),
+                    );
+                  }
+                  return ElevatedButton(
+                    key: const ValueKey("loginBtnKey"),
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() == true) {
+                        context.read<LoginCubit>().login(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
+                      }
+                    },
+                    child: const Text("login"),
                   );
-                }
-                return ElevatedButton(
-                  key: const ValueKey("loginBtnKey"),
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() == true) {
-                      context.read<LoginCubit>().login(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                          );
-                    }
-                  },
-                  child: const Text("login"),
-                );
-              })
+                },
+              )
             ],
           ),
         ),

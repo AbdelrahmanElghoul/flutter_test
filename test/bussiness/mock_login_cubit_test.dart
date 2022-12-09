@@ -40,7 +40,6 @@ void main() {
         Stream.fromIterable(
           [
             LoginLoadingState(),
-            LoginErrorState(null),
           ],
         ),
         initialState: LoginInitialState(),

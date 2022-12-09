@@ -10,7 +10,7 @@ import 'package:test_flutter/data/model/user_address.dart';
 import 'package:test_flutter/screens/login_screen.dart';
 
 void main() {
-  testWidgets('testing login components', (widgetTester) async {
+  testWidgets('testing login success components', (widgetTester) async {
     /// setting environment
     const String email = "test@test.com";
     const String password = "Aa123456";
@@ -66,8 +66,6 @@ void main() {
     /// text entered successfully
     expect(find.text(email), findsOneWidget);
     expect(find.text(password), findsOneWidget);
-
-    await widgetTester.pump();
 
     /// press the button to start login process
     await widgetTester.tap(find.byKey(loginBtnKey));

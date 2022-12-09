@@ -64,93 +64,95 @@ void main() {
     });
   });
 
-  group('throw Exception test', () {
-    /// use expect with exception
-    /// expect later will make the exception to be thrown without being caught causing test to fail
-    group(' without fakeAsync', () {
-      test("success exception test1", () {
-        expect(
-          repo.login(
-            email: "x${FakeRepository.fakeEmail}",
-            password: "Ab123456",
-          ),
-          throwsA(isA<AuthException>()),
-        );
-      });
-
-      test("success exception test2", () {
-        final res = repo.login(
-          email: "x${FakeRepository.fakeEmail}",
-          password: "Ab123456",
-        );
-        expect(res, throwsA(isA<AuthException>()));
-      });
-
-      /// will fail test as the exception will be thrown
-      test("failed exception test1", () async {
-        final res = repo.login(
-          email: "x${FakeRepository.fakeEmail}",
-          password: "Ab123456",
-        );
-        expectLater(res, completion(throwsA(isA<Exception>)));
-      });
-
-      test("failed exception test2", () async {
-        final res = repo.login(
-          email: "x${FakeRepository.fakeEmail}",
-          password: "Ab123456",
-        );
-        expectLater(res, completion(throwsA(isA<Exception>)));
-      });
-    });
-    group('test - fakeAsync', () {
-      test("success exception test1", () {
-        fakeAsync((async) {
-          expect(
-            repo.login(
-              email: "x${FakeRepository.fakeEmail}",
-              password: "Ab123456",
-            ),
-            throwsA(isA<AuthException>()),
-          );
-          async.elapse(const Duration(minutes: 1));
-        });
-      });
-
-      test("success exception test2", () {
-        fakeAsync((async) {
-          final res = repo.login(
-            email: "x${FakeRepository.fakeEmail}",
-            password: "Ab123456",
-          );
-          expect(res, throwsA(isA<AuthException>()));
-          async.elapse(const Duration(minutes: 1));
-        });
-      });
-
-      test("failed exception test1", () async {
-        fakeAsync((async) {
-          final res = repo.login(
-            email: "x${FakeRepository.fakeEmail}",
-            password: "Ab123456",
-          );
-          expect(res, completion(throwsA(isA<AuthException>)));
-          async.elapse(const Duration(minutes: 1));
-        });
-      });
-
-      test("failed exception test2", () async {
-        fakeAsync((async) {
-          final res = repo.login(
-            email: "x${FakeRepository.fakeEmail}",
-            password: "Ab123456",
-          );
-          expect(res, completion(throwsA(isA<AuthException>)));
-          async.elapse(const Duration(minutes: 1));
-        });
-      });
-    });
-  });
+  /// This tests will throw exception
+  /// a wrong example to avoid trying again when finding better approaches
+  // group('throw Exception test', () {
+  //   /// use expect with exception
+  //   /// expect later will make the exception to be thrown without being caught causing test to fail
+  //   group(' without fakeAsync', () {
+  //     test("success exception test1", () {
+  //       expect(
+  //         repo.login(
+  //           email: "x${FakeRepository.fakeEmail}",
+  //           password: "Ab123456",
+  //         ),
+  //         throwsA(isA<AuthException>()),
+  //       );
+  //     });
+  //
+  //     test("success exception test2", () {
+  //       final res = repo.login(
+  //         email: "x${FakeRepository.fakeEmail}",
+  //         password: "Ab123456",
+  //       );
+  //       expect(res, throwsA(isA<AuthException>()));
+  //     });
+  //
+  //     /// will fail test as the exception will be thrown
+  //     test("failed exception test1", () async {
+  //       final res = repo.login(
+  //         email: "x${FakeRepository.fakeEmail}",
+  //         password: "Ab123456",
+  //       );
+  //       expectLater(res, completion(throwsA(isA<Exception>)));
+  //     });
+  //
+  //     test("failed exception test2", () async {
+  //       final res = repo.login(
+  //         email: "x${FakeRepository.fakeEmail}",
+  //         password: "Ab123456",
+  //       );
+  //       expectLater(res, completion(throwsA(isA<Exception>)));
+  //     });
+  //   });
+  //   group('test - fakeAsync', () {
+  //     test("success exception test1", () {
+  //       fakeAsync((async) {
+  //         expect(
+  //           repo.login(
+  //             email: "x${FakeRepository.fakeEmail}",
+  //             password: "Ab123456",
+  //           ),
+  //           throwsA(isA<AuthException>()),
+  //         );
+  //         async.elapse(const Duration(minutes: 1));
+  //       });
+  //     });
+  //
+  //     test("success exception test2", () {
+  //       fakeAsync((async) {
+  //         final res = repo.login(
+  //           email: "x${FakeRepository.fakeEmail}",
+  //           password: "Ab123456",
+  //         );
+  //         expect(res, throwsA(isA<AuthException>()));
+  //         async.elapse(const Duration(minutes: 1));
+  //       });
+  //     });
+  //
+  //     test("failed exception test1", () async {
+  //       fakeAsync((async) {
+  //         final res = repo.login(
+  //           email: "x${FakeRepository.fakeEmail}",
+  //           password: "Ab123456",
+  //         );
+  //         expect(res, completion(throwsA(isA<AuthException>)));
+  //         async.elapse(const Duration(minutes: 1));
+  //       });
+  //     });
+  //
+  //     test("failed exception test2", () async {
+  //       fakeAsync((async) {
+  //         final res = repo.login(
+  //           email: "x${FakeRepository.fakeEmail}",
+  //           password: "Ab123456",
+  //         );
+  //         expect(res, completion(throwsA(isA<AuthException>)));
+  //         async.elapse(const Duration(minutes: 1));
+  //       });
+  //     });
+  //   });
+  // });
 
   group("mocking login method", () {
     test('mock user response', () async {
