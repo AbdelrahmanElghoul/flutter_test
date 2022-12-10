@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:test_flutter/data/model/excception_model/exceptions.dart';
 import 'package:test_flutter/data/model/user.dart';
 import 'package:test_flutter/data/repo_interface.dart';
 
@@ -14,10 +15,11 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoadingState());
     try {
       final response = await _repo?.login(email: email, password: password);
-
       emit(LoginSuccessState(response));
-    } catch (e) {
+    } on BaseException catch (e) {
       emit(LoginErrorState(e));
+    } catch (e) {
+      emit(LoginErrorState(UnknownException(e)));
     }
   }
 }

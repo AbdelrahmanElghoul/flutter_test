@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
-import 'package:test_flutter/screens/login_screen.dart';
+import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
+import 'package:test_flutter/presentation/common/loading_widget.dart';
+import 'package:test_flutter/presentation/screens/login_screen.dart';
 
 //-------
 class MockLoginCubit extends MockCubit<LoginState> implements LoginCubit {}
@@ -21,7 +22,6 @@ void main() {
     const emailKey = ValueKey("emailKey");
     const passwordKey = ValueKey("passwordKey");
     const loginBtnKey = ValueKey("loginBtnKey");
-    const loadingKey = ValueKey("loaderKey");
 
     /// stream to stubbing cubit states
     StreamController<LoginState> streamController = StreamController();
@@ -44,7 +44,7 @@ void main() {
     expect(find.byKey(emailKey), findsOneWidget);
     expect(find.byKey(passwordKey), findsOneWidget);
     expect(find.byKey(loginBtnKey), findsOneWidget);
-    expect(find.byKey(loadingKey), findsNothing);
+    expect(find.byType(LoadingWidget), findsNothing);
 
     /// no text entered yet
     expect(find.text(email), findsNothing);
@@ -71,7 +71,7 @@ void main() {
     expect(find.byKey(emailKey), findsOneWidget);
     expect(find.byKey(passwordKey), findsOneWidget);
     expect(find.byKey(loginBtnKey), findsNothing);
-    expect(find.byKey(loadingKey), findsOneWidget);
+    expect(find.byType(LoadingWidget), findsOneWidget);
   });
 }
 

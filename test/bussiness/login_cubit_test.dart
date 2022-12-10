@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
 import 'package:test_flutter/data/fake_repository.mocks.dart';
-import 'package:test_flutter/data/model/errors.dart';
+import 'package:test_flutter/data/model/excception_model/exceptions.dart';
 import 'package:test_flutter/data/model/location.dart';
 import 'package:test_flutter/data/model/user.dart';
 import 'package:test_flutter/data/model/user_address.dart';
@@ -48,7 +48,7 @@ void main() {
     });
 
     test("login fail", () async {
-      const AuthException exception = AuthException("invalid");
+      const AuthException exception = AuthException(message: "invalid");
       when(repo.login(
         email: anyNamed("email"),
         password: anyNamed("password"),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
+import 'package:test_flutter/presentation/common/loading_widget.dart';
+import 'package:test_flutter/util/consant/const_text.dart';
+import 'package:test_flutter/util/consant/pages.dart';
 import 'package:test_flutter/util/validation.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -41,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(label: Text("Email")),
                 validator: (val) {
                   if (Validation.email("$val")) return null;
-                  return "invalid email";
+                  return Messages.invalidEmail;
                 },
               ),
               TextFormField(
@@ -50,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(label: Text("password")),
                 validator: (val) {
                   if (Validation.password("$val")) return null;
-                  return "invalid password";
+                  return Messages.invalidPassword;
                 },
               ),
               BlocConsumer<LoginCubit, LoginState>(
@@ -65,21 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else if (state is LoginSuccessState) {
-                    final snackBar = SnackBar(
-                      content: Text(
-                          "welcome back ${_emailController.text.split("@").first}"),
-                      duration: const Duration(seconds: 3),
-                      backgroundColor: Colors.green,
-                    );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.of(context).pushNamed(Pages.home);
                   }
                 },
                 builder: (context, state) {
                   if (state is LoginLoadingState) {
-                    return const CircularProgressIndicator(
-                      key: Key("loaderKey"),
-                    );
+                    return const LoadingWidget();
                   }
                   return ElevatedButton(
                     key: const ValueKey("loginBtnKey"),

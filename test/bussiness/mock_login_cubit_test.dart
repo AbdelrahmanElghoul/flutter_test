@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
 
 class MockLoginBloc extends MockBloc<LoginCubit, LoginState>
     implements LoginCubit {}

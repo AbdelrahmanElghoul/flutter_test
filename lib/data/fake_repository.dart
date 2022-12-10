@@ -1,5 +1,5 @@
 import 'package:mockito/annotations.dart';
-import 'package:test_flutter/data/model/errors.dart';
+import 'package:test_flutter/data/model/excception_model/exceptions.dart';
 import 'package:test_flutter/data/model/location.dart';
 import 'package:test_flutter/data/model/user.dart';
 import 'package:test_flutter/data/model/user_address.dart';
@@ -31,6 +31,22 @@ class FakeRepository implements IRepository {
       );
     }
 
-    throw const AuthException('email or password incorrect');
+    throw const AuthException(message: 'email or password incorrect');
+  }
+
+  @override
+  Future getUsers() async {
+    return List.generate(
+      100,
+      (index) => User(
+        firstName: "0x_${index}_firstName",
+        lastName: "1x_${index}_lastName",
+        email: "user_$index@test.com",
+        address: Address(
+          address: "$index street",
+          location: Location(index, index),
+        ),
+      ),
+    );
   }
 }

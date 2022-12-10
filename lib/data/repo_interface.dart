@@ -6,4 +6,6 @@ abstract class IRepository {
   factory IRepository.fake() => FakeRepository.instance;
 
   Future login({required String? email, required String? password});
+
+  Future getUsers();
 }

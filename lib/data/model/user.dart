@@ -7,6 +7,7 @@ class User extends Equatable {
   final String? _email;
 
   final Address? _address;
+
   const User({
     String? firstName,
     String? lastName,
@@ -17,11 +18,12 @@ class User extends Equatable {
         _email = email,
         _address = address;
 
-  String getFullName() {
+  String get fullName {
     return "$_firstName $_lastName";
   }
 
   String? get email => _email;
+
   Address? get address => _address;
 
   @override

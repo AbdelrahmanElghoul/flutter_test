@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
 import 'package:test_flutter/data/fake_repository.mocks.dart';
-import 'package:test_flutter/data/model/errors.dart';
-import 'package:test_flutter/screens/login_screen.dart';
+import 'package:test_flutter/data/model/excception_model/exceptions.dart';
+import 'package:test_flutter/presentation/screens/login_screen.dart';
 
 void main() {
   testWidgets('testing login error components', (widgetTester) async {
@@ -18,7 +18,7 @@ void main() {
     const passwordKey = ValueKey("passwordKey");
     const loginBtnKey = ValueKey("loginBtnKey");
 
-    const authException = AuthException('message');
+    const authException = AuthException(message: 'message');
 
     /// creating widget
     await widgetTester.pumpWidget(createWidgetUnderTest(loginCubit));

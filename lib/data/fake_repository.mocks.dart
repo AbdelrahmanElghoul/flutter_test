@@ -40,4 +40,13 @@ class MockFakeRepository extends _i1.Mock implements _i2.FakeRepository {
         returnValue: _i3.Future<dynamic>.value(),
         returnValueForMissingStub: _i3.Future<dynamic>.value(),
       ) as _i3.Future<dynamic>);
+  @override
+  _i3.Future<dynamic> getUsers() => (super.noSuchMethod(
+        Invocation.method(
+          #getUsers,
+          [],
+        ),
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
 }

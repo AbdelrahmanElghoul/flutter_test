@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test_flutter/bussiness/login_cubt/login_cubit.dart';
+import 'package:test_flutter/bussiness/home_cubit/home_cubit.dart';
+import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
 import 'package:test_flutter/data/fake_repository.mocks.dart';
 import 'package:test_flutter/data/model/location.dart';
 import 'package:test_flutter/data/model/user.dart';
 import 'package:test_flutter/data/model/user_address.dart';
-import 'package:test_flutter/screens/login_screen.dart';
+import 'package:test_flutter/presentation/screens/home/home_screen.dart';
+import 'package:test_flutter/presentation/screens/login_screen.dart';
+import 'package:test_flutter/util/consant/pages.dart';
 
 void main() {
   testWidgets('testing login success components', (widgetTester) async {
@@ -72,15 +75,32 @@ void main() {
     await widgetTester.pumpAndSettle();
 
     /// test success message appeared on screen
-    expect(find.textContaining("welcome"), findsOneWidget);
+    expect(find.byType(LoginScreen), findsNothing);
+    expect(find.byType(HomeScreen), findsOneWidget);
   });
 }
 
 createWidgetUnderTest(LoginCubit loginCubit) {
   return MaterialApp(
-    home: BlocProvider(
-      create: (_) => loginCubit,
-      child: const LoginScreen(),
-    ),
+    onGenerateRoute: (setting) {
+      switch (setting.name) {
+        case Pages.login:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => loginCubit,
+              child: const LoginScreen(),
+            ),
+          );
+
+        case Pages.home:
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => HomeCubit(null),
+              child: const HomeScreen(),
+            ),
+          );
+      }
+    },
+    initialRoute: Pages.login,
   );
 }
