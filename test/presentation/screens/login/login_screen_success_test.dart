@@ -9,7 +9,7 @@ import 'package:test_flutter/data/model/location.dart';
 import 'package:test_flutter/data/model/user.dart';
 import 'package:test_flutter/data/model/user_address.dart';
 import 'package:test_flutter/presentation/screens/home/home_screen.dart';
-import 'package:test_flutter/presentation/screens/login_screen.dart';
+import 'package:test_flutter/presentation/screens/login/login_screen.dart';
 import 'package:test_flutter/util/consant/pages.dart';
 
 void main() {

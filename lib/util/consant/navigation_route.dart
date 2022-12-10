@@ -4,7 +4,7 @@ import 'package:test_flutter/bussiness/home_cubit/home_cubit.dart';
 import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
 import 'package:test_flutter/data/repo_interface.dart';
 import 'package:test_flutter/presentation/screens/home/home_screen.dart';
-import 'package:test_flutter/presentation/screens/login_screen.dart';
+import 'package:test_flutter/presentation/screens/login/login_screen.dart';
 import 'package:test_flutter/util/consant/pages.dart';
 
 class NavigationRoute {

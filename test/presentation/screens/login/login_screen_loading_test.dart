@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_flutter/bussiness/login_cubit/login_cubit.dart';
 import 'package:test_flutter/presentation/common/loading_widget.dart';
-import 'package:test_flutter/presentation/screens/login_screen.dart';
+import 'package:test_flutter/presentation/screens/login/login_screen.dart';
 
 //-------
 class MockLoginCubit extends MockCubit<LoginState> implements LoginCubit {}
